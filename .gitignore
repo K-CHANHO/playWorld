@@ -38,3 +38,5 @@ out/
 
 ### personal ignore ###
 *.properties
+*.pdf
+*.db

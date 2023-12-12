@@ -1,12 +1,10 @@
-package com.example.playWorld.login;
+package com.example.playWorld.member;
 
-import com.example.playWorld.member.MemberEntity;
-import com.example.playWorld.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginService {
+public class MemberService {
 
     @Autowired
     private MemberRepository memberRepository;
