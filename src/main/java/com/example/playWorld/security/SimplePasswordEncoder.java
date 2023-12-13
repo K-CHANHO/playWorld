@@ -1,4 +1,4 @@
-package com.example.playWorld.Security;
+package com.example.playWorld.security;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 

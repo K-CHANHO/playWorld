@@ -1,4 +1,4 @@
-package com.example.playWorld.Security;
+package com.example.playWorld.security;
 
 import com.example.playWorld.member.MemberEntity;
 import com.example.playWorld.member.MemberRepository;

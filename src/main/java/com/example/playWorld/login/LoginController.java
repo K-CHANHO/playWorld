@@ -1,29 +1,25 @@
 package com.example.playWorld.login;
 
-import org.springframework.stereotype.Controller;
+import com.example.playWorld.member.MemberDTO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@Slf4j
 public class LoginController {
 
-    @GetMapping("/")
-    public String root(){
-        return "/login/home";
+    @Autowired
+    LoginService loginService;
+
+    @PostMapping("/login")
+    public ResponseEntity login(MemberDTO memberDTO){
+
+        return ResponseEntity.ok(loginService.login(memberDTO));
     }
 
-    @GetMapping("/home")
-    public String home(){
-        return "/login/home";
-    }
-
-    @GetMapping("/hello")
-    public String hello(){
-        return "/login/hello";
-    }
-
-    @GetMapping("/login")
-    public String loginPage(){
-        return "/login/login";
-    }
 
 }
