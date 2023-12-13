@@ -23,11 +23,9 @@ public class LoginService {
     TokenService tokenService;
 
     public Map<String, String> login(MemberDTO memberDTO){
-        log.info("START : 1");
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(memberDTO.getLoginId(), memberDTO.getPasswd());
-        log.info("START : 2");
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        log.info("START : 3");
+//        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(memberDTO.getLoginId(), memberDTO.getPasswd());
+//        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
         String accessToken = tokenService.createAccessToken(memberDTO);
         String refreshToken = tokenService.createRefreshToken(memberDTO);
 
