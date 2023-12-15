@@ -27,6 +27,9 @@ public class MemberEntity {
     private String passwd;
 
     @Column
+    private String nickname;
+
+    @Column
     private String roles;
 
 }

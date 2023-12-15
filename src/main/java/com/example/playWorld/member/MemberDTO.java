@@ -14,6 +14,7 @@ public class MemberDTO {
     private String uid;
     private String loginId;
     private String passwd;
+    private String nickname;
     private String roles;
 
     public static MemberDTO toDTO(MemberEntity entity) {
@@ -21,6 +22,7 @@ public class MemberDTO {
                 .uid(entity.getUid())
                 .loginId(entity.getLoginId())
                 .passwd(entity.getPasswd())
+                .nickname(entity.getNickname())
                 .roles(entity.getRoles())
                 .build();
 
@@ -32,6 +34,7 @@ public class MemberDTO {
                 .uid(dto.getUid())
                 .loginId(dto.getLoginId())
                 .passwd(dto.getPasswd())
+                .nickname(dto.getNickname())
                 .roles(dto.getRoles())
                 .build();
 
