@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Builder
@@ -34,7 +35,7 @@ public class MemberEntity implements UserDetails {
     private String nickname;
 
     @Column(nullable = false)
-    private String roles;
+    private List<String> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

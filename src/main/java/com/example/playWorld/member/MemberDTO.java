@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -23,7 +26,7 @@ public class MemberDTO {
                 .loginId(entity.getLoginId())
                 .passwd(entity.getPasswd())
                 .nickname(entity.getNickname())
-                .roles(entity.getRoles())
+                .roles(entity.getRoles().stream().collect(Collectors.joining(",")))
                 .build();
 
         return dto;
@@ -35,7 +38,7 @@ public class MemberDTO {
                 .loginId(dto.getLoginId())
                 .passwd(dto.getPasswd())
                 .nickname(dto.getNickname())
-                .roles(dto.getRoles())
+                .roles(Arrays.stream(dto.getRoles().split(",")).toList())
                 .build();
 
         return entity;

@@ -1,4 +1,4 @@
-package com.example.playWorld.login;
+package com.example.playWorld.member.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
