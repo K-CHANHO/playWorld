@@ -6,3 +6,4 @@
 - 페이징 처리
 - Query DSL 
 - WebFlux
+- AOP 적용

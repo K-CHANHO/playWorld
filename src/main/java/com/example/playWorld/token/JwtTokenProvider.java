@@ -36,23 +36,23 @@ public class JwtTokenProvider {
 
     public JwtTokenDTO createToken(Authentication authentication){
 
-        String autorities = authentication.getAuthorities().stream()
+        String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         long now = new Date().getTime();
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
-                .claim("auth", autorities)
+                .claim("auth", authorities)
                 .setExpiration(new Date(now + accessTokenExpiration))
-                .signWith(key, SignatureAlgorithm.ES256)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
         String refreshToken = Jwts.builder()
                 .setSubject(authentication.getName())
-                .claim("auth", autorities)
+                .claim("auth", authorities)
                 .setExpiration(new Date(now + refreshTokenExpiration))
-                .signWith(key, SignatureAlgorithm.ES256)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
         return JwtTokenDTO.builder()

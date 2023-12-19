@@ -1,4 +1,4 @@
-package com.example.playWorld.member;
+package com.example.playWorld.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,19 +12,19 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberDTO {
+public class UserDTO {
 
     private String uid;
     private String loginId;
-    private String passwd;
+    private String password;
     private String nickname;
     private String roles;
 
-    public static MemberDTO toDTO(MemberEntity entity) {
-        MemberDTO dto = MemberDTO.builder()
+    public static UserDTO toDTO(UserEntity entity) {
+        UserDTO dto = UserDTO.builder()
                 .uid(entity.getUid())
                 .loginId(entity.getLoginId())
-                .passwd(entity.getPasswd())
+                .password(entity.getPassword())
                 .nickname(entity.getNickname())
                 .roles(entity.getRoles().stream().collect(Collectors.joining(",")))
                 .build();
@@ -32,11 +32,11 @@ public class MemberDTO {
         return dto;
     }
 
-    public static MemberEntity toEntity(MemberDTO dto) {
-        MemberEntity entity = MemberEntity.builder()
+    public static UserEntity toEntity(UserDTO dto) {
+        UserEntity entity = UserEntity.builder()
                 .uid(dto.getUid())
                 .loginId(dto.getLoginId())
-                .passwd(dto.getPasswd())
+                .password(dto.getPassword())
                 .nickname(dto.getNickname())
                 .roles(Arrays.stream(dto.getRoles().split(",")).toList())
                 .build();

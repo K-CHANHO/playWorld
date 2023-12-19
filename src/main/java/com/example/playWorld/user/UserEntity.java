@@ -1,13 +1,11 @@
-package com.example.playWorld.member;
+package com.example.playWorld.user;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,18 +16,18 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Getter
-@Table(name = "member")
-public class MemberEntity implements UserDetails {
+@Table(name = "PW_user")
+public class UserEntity implements UserDetails {
 
     @Id
-    @Column
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String uid;
 
     @Column(nullable = false)
     private String loginId;
 
     @Column(nullable = false)
-    private String passwd;
+    private String password;
 
     @Column(nullable = false)
     private String nickname;
@@ -44,31 +42,31 @@ public class MemberEntity implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.loginId;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

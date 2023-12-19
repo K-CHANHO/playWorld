@@ -7,12 +7,14 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -20,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final String[] allowedUrls = {"/login", "/home", "/", "/css/**", "/js/**", "/img/**"};
+    private final String[] allowedUrls = {"/login", "/sign-up"};
     private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
@@ -50,6 +52,5 @@ public class SecurityConfig {
         // TODO 나중에 모듈 변경하기 -> BCryptPasswordEncoder()
         return new SimplePasswordEncoder();
     }
-
 
 }

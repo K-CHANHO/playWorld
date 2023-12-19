@@ -1,6 +1,7 @@
 package com.example.playWorld.security;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 public class SimplePasswordEncoder implements PasswordEncoder {
 
