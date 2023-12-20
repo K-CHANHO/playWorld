@@ -3,6 +3,8 @@ package com.example.playWorld.user;
 import com.example.playWorld.token.JwtTokenDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,15 +18,28 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public JwtTokenDTO login(UserDTO userDTO){
+    public ResponseEntity login(UserDTO userDTO){
 
-        return userService.logIn(userDTO.getLoginId(), userDTO.getPassword());
+        JwtTokenDTO jwtTokenDTO = userService.logIn(userDTO.getLoginId(), userDTO.getPassword());
+        return new ResponseEntity(jwtTokenDTO, HttpStatus.OK);
     }
 
     @PostMapping("/sign-up")
-    public UserDTO signUp(UserDTO userDTO){
-        return userService.signUp(userDTO);
+    public ResponseEntity signUp(UserDTO userDTO){
+
+        try {
+
+            UserDTO savedUserDTO = userService.signUp(userDTO);
+            return new ResponseEntity(savedUserDTO, HttpStatus.OK);
+
+        } catch (IllegalArgumentException e){
+
+            return new ResponseEntity(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+
+        }
     }
+
+
 
 
 }
