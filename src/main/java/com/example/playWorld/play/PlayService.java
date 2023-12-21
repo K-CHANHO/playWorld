@@ -1,21 +1,13 @@
 package com.example.playWorld.play;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Unmarshaller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.codec.xml.Jaxb2XmlDecoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.io.StringReader;
-import java.time.LocalDate;
-import java.util.Map;
 
 @Service
 @Slf4j
@@ -23,6 +15,13 @@ public class PlayService {
 
     @Value("${kopis.key}")
     private String kopisKey;
+
+    private WebClient kopisWebClient = WebClient.builder()
+            .baseUrl("http://www.kopis.or.kr/openApi/restful")
+            .exchangeStrategies(ExchangeStrategies.builder() // xml 데이터 바로 파싱
+                    .codecs(configure -> configure.defaultCodecs().jaxb2Decoder(new Jaxb2XmlDecoder()))
+                    .build())
+            .build();
 
     public PlayListResultDTO getPlayList(PlayListRequestDTO requestDTO) throws JAXBException {
 
@@ -33,14 +32,10 @@ public class PlayService {
         Map<String, String> requestParams = objectMapper.convertValue(requestDTO, new TypeReference<Map<String, String>>() {});
         params.setAll(requestParams);
         log.info(requestParams.toString());
-        log.info(params.get("stdate").toString());
+        log.info(params);
         */
 
-        WebClient webClient = WebClient.builder()
-                .baseUrl("http://www.kopis.or.kr/openApi/restful")
-                .build();
-
-        String result = webClient.get()
+        PlayListResultDTO playListDTO = kopisWebClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/pblprfr")
                         .queryParam("service", kopisKey)
                         .queryParam("rows", requestDTO.getRows())
@@ -55,14 +50,17 @@ public class PlayService {
                 .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> {
                     throw new RuntimeException("4XX Error, 잘못된 요청입니다");
                 })
-                .bodyToMono(String.class)
+                .bodyToMono(PlayListResultDTO.class)
                 .block();
 
+        /*
+        // webclient 선언 시 설정으로 xml 바로 파싱되게끔 변경.
         // xml 데이터를 Object로 변환
         JAXBContext jaxbContext = JAXBContext.newInstance(PlayListResultDTO.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        PlayListResultDTO unmarshalled = (PlayListResultDTO) unmarshaller.unmarshal(new StringReader(result));
+        PlayListResultDTO playListDTO = (PlayListResultDTO) unmarshaller.unmarshal(new StringReader(result));
+         */
 
-        return unmarshalled;
+        return playListDTO;
     }
 }

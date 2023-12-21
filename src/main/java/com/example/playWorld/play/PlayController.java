@@ -15,7 +15,7 @@ public class PlayController {
 
    private final PlayService playService;
 
-    @PostMapping("/play")
+    @PostMapping("/playlist")
     public ResponseEntity playList(PlayListRequestDTO requestDTO) throws JAXBException {
 
         PlayListResultDTO playList = playService.getPlayList(requestDTO);
