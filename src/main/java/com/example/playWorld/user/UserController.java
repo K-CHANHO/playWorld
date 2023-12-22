@@ -5,9 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.security.PublicKey;
 
 @RestController
@@ -37,6 +39,11 @@ public class UserController {
             return new ResponseEntity(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
 
         }
+    }
+
+    @GetMapping("loginNow")
+    public ResponseEntity loginNow(Principal principal){
+        return new ResponseEntity(principal.getName(), HttpStatus.OK);
     }
 
 
