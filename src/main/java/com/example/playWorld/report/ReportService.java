@@ -25,4 +25,10 @@ public class ReportService {
         return reportDTOS;
     }
 
+
+    // TODO : 추후에 지우기
+    public void test(){
+        reportRepository.test();
+    }
+
 }

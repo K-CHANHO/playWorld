@@ -42,6 +42,7 @@ public class UserController {
     }
 
     @GetMapping("loginNow")
+    // TODO : 추후에 지우기
     public ResponseEntity loginNow(Principal principal){
         return new ResponseEntity(principal.getName(), HttpStatus.OK);
     }
