@@ -27,18 +27,20 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.2.0'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '3.2.0'
+	// Spring Security
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.2.0'
+	// JPA
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.2.0'
 	runtimeOnly 'com.h2database:h2'
+	// JWT
 	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+	// Webflux
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '3.2.0'
+	// XML Parsing
 	implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.1'
 
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
