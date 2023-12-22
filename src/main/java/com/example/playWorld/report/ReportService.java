@@ -1,5 +1,6 @@
 package com.example.playWorld.report;
 
+import com.example.playWorld.report.repository.ReportRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
