@@ -1,4 +1,4 @@
-package com.example.playWorld.play;
+package com.example.playWorld.play.dto;
 
 import jakarta.xml.bind.annotation.*;
 import lombok.Data;

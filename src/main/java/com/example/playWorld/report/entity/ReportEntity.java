@@ -1,4 +1,4 @@
-package com.example.playWorld.report;
+package com.example.playWorld.report.entity;
 
 import com.example.playWorld.common.CommonTimeEntity;
 import jakarta.persistence.*;
@@ -23,7 +23,7 @@ public class ReportEntity extends CommonTimeEntity {
     private String userId;
 
     @Column
-    private String userNickname;
+    private String title;
 
     @Column(columnDefinition = "MEDIUMTEXT")
     private String content;

@@ -1,4 +1,4 @@
-package com.example.playWorld.report;
+package com.example.playWorld.report.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QReportEntity extends EntityPathBase<ReportEntity> {
 
-    private static final long serialVersionUID = -1416595600L;
+    private static final long serialVersionUID = -82002103L;
 
     public static final QReportEntity reportEntity = new QReportEntity("reportEntity");
 
@@ -28,12 +28,12 @@ public class QReportEntity extends EntityPathBase<ReportEntity> {
 
     public final NumberPath<Long> reportId = createNumber("reportId", Long.class);
 
+    public final StringPath title = createString("title");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateTime = _super.updateTime;
 
     public final StringPath userId = createString("userId");
-
-    public final StringPath userNickname = createString("userNickname");
 
     public QReportEntity(String variable) {
         super(ReportEntity.class, forVariable(variable));

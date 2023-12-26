@@ -1,13 +1,12 @@
-package com.example.playWorld.report;
+package com.example.playWorld.report.dto;
 
 import com.example.playWorld.common.CommonTimeDTO;
+import com.example.playWorld.report.entity.ReportEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicUpdate;
-
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -19,13 +18,14 @@ public class ReportDTO extends CommonTimeDTO {
     private long reportId;
     private String userId;
     private String userNickname;
+    private String title;
     private String content;
 
     public static ReportEntity toEntity(ReportDTO dto){
         ReportEntity entity = ReportEntity.builder()
                 .reportId(dto.getReportId())
                 .userId(dto.getUserId())
-                .userNickname(dto.getUserNickname())
+                .title(dto.getTitle())
                 .content(dto.getContent())
                 .build();
 
@@ -36,7 +36,7 @@ public class ReportDTO extends CommonTimeDTO {
         ReportDTO dto = ReportDTO.builder()
                 .reportId(entity.getReportId())
                 .userId(entity.getUserId())
-                .userNickname(entity.getUserNickname())
+                .title(entity.getTitle())
                 .content(entity.getContent())
                 .createTime(entity.getCreateTime())
                 .updateTime(entity.getUpdateTime())

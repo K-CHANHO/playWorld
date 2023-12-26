@@ -1,4 +1,4 @@
-package com.example.playWorld.play;
+package com.example.playWorld.play.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +22,7 @@ public class PlayListRequestDTO {
     public String shprfnmfct; // 공연시설명
     public String signgucode; // 지역(시도)코드
     public String signgucodesub; // 지역(구군)코드
-    public String shcate = "AAAA"; // 장르코드
-    public String prfstate = "02"; // 공연상태코드
+    public String shcate = "AAAA"; // 장르코드 / 연극
+    public String prfstate = "02"; // 공연상태코드 / 공연중
 
 }

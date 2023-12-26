@@ -1,5 +1,7 @@
-package com.example.playWorld.play;
+package com.example.playWorld.play.service;
 
+import com.example.playWorld.play.dto.PlayListRequestDTO;
+import com.example.playWorld.play.dto.PlayListResultDTO;
 import jakarta.xml.bind.JAXBException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,6 +46,8 @@ public class PlayService {
                         .queryParam("prfstate", requestDTO.getPrfstate())
                         .queryParam("stdate", requestDTO.getStdate())
                         .queryParam("eddate", requestDTO.getEddate())
+                        .queryParam("shprfnm", requestDTO.getShprfnm())
+                        .queryParam("shprfnmfct", requestDTO.getShprfnmfct())
 //                        .queryParams((params)) // TODO : value가 List형태로 들어가서 작동 안 함. 좀 더 알아봐야할 듯
                         .build())
                 .retrieve()
