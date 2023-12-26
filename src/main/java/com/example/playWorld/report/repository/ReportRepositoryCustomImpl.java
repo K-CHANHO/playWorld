@@ -41,4 +41,5 @@ public class ReportRepositoryCustomImpl implements ReportRepositoryCustom{
 
         return searchList;
     }
+
 }

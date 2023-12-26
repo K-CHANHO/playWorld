@@ -1,7 +1,9 @@
 package com.example.playWorld.play.service;
 
+import com.example.playWorld.play.dto.PlayDetailResultDTO;
 import com.example.playWorld.play.dto.PlayListRequestDTO;
 import com.example.playWorld.play.dto.PlayListResultDTO;
+import com.example.playWorld.play.dto.PlayPlaceDetailDTO;
 import jakarta.xml.bind.JAXBException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -66,5 +68,37 @@ public class PlayService {
          */
 
         return playListDTO;
+    }
+
+    public PlayDetailResultDTO getPlayDetail(String playId) {
+
+        PlayDetailResultDTO playDetailDTO = kopisWebClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/pblprfr/" + playId)
+                        .queryParam("service", kopisKey)
+                        .build())
+                .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> {
+                    throw new RuntimeException("4XX Error, 잘못된 요청입니다");
+                })
+                .bodyToMono(PlayDetailResultDTO.class)
+                .block();
+
+        return playDetailDTO;
+    }
+
+    public PlayPlaceDetailDTO getPlaceDetail(String placeId) {
+
+        PlayPlaceDetailDTO placeDetailDTO = kopisWebClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/prfplc/" + placeId)
+                        .queryParam("service", kopisKey)
+                        .build())
+                .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> {
+                    throw new RuntimeException("4XX Error, 잘못된 요청입니다");
+                })
+                .bodyToMono(PlayPlaceDetailDTO.class)
+                .block();
+
+        return placeDetailDTO;
     }
 }

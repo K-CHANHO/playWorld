@@ -1,9 +1,10 @@
 package com.example.playWorld.play.dto;
 
-import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
 
 import java.util.List;
 
