@@ -39,3 +39,4 @@ out/
 ### personal ignore ###
 application-private.properties
 *.pdf
+/src/test

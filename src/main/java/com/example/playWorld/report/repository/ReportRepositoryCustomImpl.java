@@ -5,10 +5,12 @@ import com.example.playWorld.report.entity.QReportEntity;
 import com.example.playWorld.report.entity.ReportEntity;
 import com.example.playWorld.user.QUserEntity;
 import com.example.playWorld.user.UserEntity;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.*;
+import org.springframework.data.support.PageableExecutionUtils;
 
 import java.util.List;
 
@@ -17,17 +19,6 @@ import java.util.List;
 public class ReportRepositoryCustomImpl implements ReportRepositoryCustom{
 
     private final JPAQueryFactory jpaQueryFactory;
-
-
-    // TODO : 추후에 지우기
-    public void test(){
-        QReportEntity report = QReportEntity.reportEntity;
-        QUserEntity user = QUserEntity.userEntity;
-
-        List<UserEntity> fetch1 = jpaQueryFactory.selectFrom(user).fetch();
-
-        log.info(fetch1.toString());
-    }
 
     public List<ReportEntity> searchReportByTitleOrContent(String keyword) {
         QReportEntity report = QReportEntity.reportEntity;
@@ -42,4 +33,45 @@ public class ReportRepositoryCustomImpl implements ReportRepositoryCustom{
         return searchList;
     }
 
+    @Override
+    public Page<ReportEntity> findPageBy(Pageable pageable) {
+        QReportEntity report = QReportEntity.reportEntity;
+
+        List<ReportEntity> content = jpaQueryFactory
+                .selectFrom(report)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(report.reportId.desc())
+                .fetch();
+
+        JPAQuery<Long> countQuery = jpaQueryFactory
+                .select(report.count())
+                .from(report);
+
+        Page<ReportEntity> result = PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+
+        return result;
+    }
+
+    @Override
+    public Slice<ReportEntity> findSliceBy(Pageable pageable) {
+        QReportEntity report = QReportEntity.reportEntity;
+
+        List<ReportEntity> content = jpaQueryFactory
+                .selectFrom(report)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize() + 1)
+                .orderBy(report.reportId.desc())
+                .fetch();
+
+        boolean hasNext = false;
+        if(content.size() > pageable.getPageSize()){
+            content.remove(pageable.getPageSize());
+            hasNext = true;
+        }
+
+        Slice<ReportEntity> result = new SliceImpl<>(content, pageable, hasNext);
+
+        return result;
+    }
 }

@@ -1,14 +1,24 @@
 package com.example.playWorld.report.controller;
 
-import com.example.playWorld.report.service.ReportService;
+import com.example.playWorld.common.config.LocalDateTimeSerializer;
 import com.example.playWorld.report.dto.ReportDTO;
+import com.example.playWorld.report.service.ReportService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -21,9 +31,23 @@ public class ReportController {
     @GetMapping("/allReport")
     public ResponseEntity getAllReport(){
 
-        List<ReportDTO> allReports = reportService.getAllReports();
+        List<ReportDTO> allReports = reportService.getAllReport();
 
         return new ResponseEntity(allReports, HttpStatus.OK);
+    }
+
+    @GetMapping("/allReport/{page}")
+    public ResponseEntity getAllReportAsPage(@PathVariable("page") int page) throws JsonProcessingException {
+
+        Page<ReportDTO> allReportAsPage = reportService.getAllReportAsPage(page);
+        Slice<ReportDTO> allReportAsSlice = reportService.getAllReportAsSlice(page);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("page", allReportAsPage);
+        result.put("slice", allReportAsSlice);
+
+
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     @PostMapping("/saveReport")
