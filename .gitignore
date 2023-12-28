@@ -40,4 +40,5 @@ out/
 application-private.properties
 *.pdf
 /src/test
-./logs
+logs/
+*.log
