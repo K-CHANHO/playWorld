@@ -1,4 +1,4 @@
-package com.example.playWorld.token;
+package com.example.playWorld.token.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,4 +13,5 @@ public class JwtTokenDTO {
     private String grantType; // Bearer
     private String accessToken;
     private String refreshToken;
+//    private Long refreshTokenId;
 }

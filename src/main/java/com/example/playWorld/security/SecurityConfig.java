@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final String[] allowedUrls = {"/login", "/sign-up"};
+    private final String[] allowedUrls = {"/login", "/sign-up", "/login/refresh"};
     private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
